@@ -8,27 +8,28 @@ const ImageScrollbar = ({ data }) => {
 
   const scroll = (direction) => {
     if (direction === 'left') {
-      scrollRef.current.scrollLeft -= 300;
+      scrollRef.current.scrollLeft -= 400;
     } else {
-      scrollRef.current.scrollLeft += 300;
+      scrollRef.current.scrollLeft += 400;
     }
   };
 
   return (
-    <Flex position="relative" alignItems="center">
+    <Flex position="relative" alignItems="center" width="100%">
+      
       {/* Left Arrow */}
       <Icon
         as={FaArrowAltCircleLeft}
         onClick={() => scroll('left')}
-        fontSize="2xl"
+        fontSize="3xl"
         cursor="pointer"
         position="absolute"
-        left="0"
+        left="5px"
         zIndex="10"
         color="black"
       />
 
-      {/* Scrollable Container */}
+      {/* Scroll Container */}
       <Flex
         ref={scrollRef}
         overflowX="scroll"
@@ -36,20 +37,25 @@ const ImageScrollbar = ({ data }) => {
         whiteSpace="nowrap"
         scrollBehavior="smooth"
         width="100%"
-        gap="10px"
+        gap="15px"
+        p="10px 0"
       >
         {data.map((item) => (
           <Box
             key={item.id}
-            p="1"
+            position="relative"
             display="inline-block"
+            minW="700px"
+            height="450px"
           >
             <Image
-              alt="scroll-image"
+              alt="property-image"
               src={item.url}
-              width={500}
-              height={400}
-              style={{ borderRadius: '10px' }}
+              fill
+              style={{
+                objectFit: 'cover',
+                borderRadius: '12px',
+              }}
             />
           </Box>
         ))}
@@ -59,13 +65,14 @@ const ImageScrollbar = ({ data }) => {
       <Icon
         as={FaArrowAltCircleRight}
         onClick={() => scroll('right')}
-        fontSize="2xl"
+        fontSize="3xl"
         cursor="pointer"
         position="absolute"
-        right="0"
+        right="5px"
         zIndex="10"
         color="black"
       />
+
     </Flex>
   );
 };
