@@ -1,48 +1,73 @@
-import { useContext } from 'react';
 import Image from 'next/image';
 import { Box, Icon, Flex } from '@chakra-ui/react';
-import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa';
+import { useRef } from 'react';
 
-const LeftArrow = () => {
-  const { scrollPrev } = useContext(VisibilityContext);
+const ImageScrollbar = ({ data }) => {
+  const scrollRef = useRef(null);
+
+  const scroll = (direction) => {
+    if (direction === 'left') {
+      scrollRef.current.scrollLeft -= 300;
+    } else {
+      scrollRef.current.scrollLeft += 300;
+    }
+  };
 
   return (
-    <Flex justifyContent='center' alignItems='center' marginRight='1'>
+    <Flex position="relative" alignItems="center">
+      {/* Left Arrow */}
       <Icon
         as={FaArrowAltCircleLeft}
-        onClick={() => scrollPrev()}
-        fontSize='2xl'
-        cursor='pointer'
-        d={['none','none','none','block']}
+        onClick={() => scroll('left')}
+        fontSize="2xl"
+        cursor="pointer"
+        position="absolute"
+        left="0"
+        zIndex="10"
+        color="black"
+      />
+
+      {/* Scrollable Container */}
+      <Flex
+        ref={scrollRef}
+        overflowX="scroll"
+        overflowY="hidden"
+        whiteSpace="nowrap"
+        scrollBehavior="smooth"
+        width="100%"
+        gap="10px"
+      >
+        {data.map((item) => (
+          <Box
+            key={item.id}
+            p="1"
+            display="inline-block"
+          >
+            <Image
+              alt="scroll-image"
+              src={item.url}
+              width={500}
+              height={400}
+              style={{ borderRadius: '10px' }}
+            />
+          </Box>
+        ))}
+      </Flex>
+
+      {/* Right Arrow */}
+      <Icon
+        as={FaArrowAltCircleRight}
+        onClick={() => scroll('right')}
+        fontSize="2xl"
+        cursor="pointer"
+        position="absolute"
+        right="0"
+        zIndex="10"
+        color="black"
       />
     </Flex>
   );
-}
+};
 
-const RightArrow = () => {
-  const { scrollNext } = useContext(VisibilityContext);
-
-  return (
-    <Flex justifyContent='center' alignItems='center' marginLeft='1'>
-      <Icon
-        as={FaArrowAltCircleRight}
-        onClick={() => scrollNext()}
-        fontSize='2xl'
-        cursor='pointer'
-        d={['none','none','none','block']}
-    />
-    </Flex>
-  );
-}
-export default function ImageSrollbar({ data }) {
-  return (
-    <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow} style={{ overflow: 'hidden' }} >
-      {data.map((item) => (
-        <Box width='910px' itemId={item.id} overflow='hidden' p='1'>
-          <Image placeholder="blur" blurDataURL={item.url} src={item.url} width={1000} height={500}  sizes="(max-width: 500px) 100px, (max-width: 1023px) 400px, 1000px" />
-        </Box>
-      ))}
-    </ScrollMenu>
-  );
-}
+export default ImageScrollbar;
