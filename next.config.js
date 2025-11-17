@@ -8,6 +8,9 @@ const nextConfig = {
     config.resolve.fallback = {
       ...config.resolve.fallback,
       crypto: false,
+      stream: require.resolve("stream-browserify"),
+      path: false,
+      fs: false,
     };
     return config;
   },
