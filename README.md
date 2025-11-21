@@ -22,7 +22,8 @@ Browse properties for rent & sale with filters, detailed pages, and smooth image
 ✔ Searching & filtering options
 ✔ Server-side rendered pages
 ✔ Secure API using .env
-✔ Deployed on Vercel
+✔ Deployed on Vercel<img width="1916" height="906" alt="Screenshot 2025-11-21 164454" src="https://github.com/user-attachments/assets/3b0deef7-a9a7-4c6b-b63a-16a94160a802" />
+
 
 
 ---
@@ -30,6 +31,7 @@ Browse properties for rent & sale with filters, detailed pages, and smooth image
 🛠 Tech Stack
 
 Technology	Usage
+<img width="1919" height="913" alt="Screenshot 2025-11-21 164515" src="https://github.com/user-attachments/assets/6a50299a-a7c1-4d77-ae7a-2bf92e308c8b" />
 
 Next.js 13+	Framework
 React 18	UI Library
